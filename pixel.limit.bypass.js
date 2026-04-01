@@ -12,7 +12,7 @@
 // @name:ar      Pixeldrain Bypass - متعدد اللغات
 // @name:pt      Pixeldrain Bypass - Multi-idioma
 // @namespace    https://greasyfork.org/users/1522465-xmtaha
-// @version      1.6
+// @version      1.7
 // @description  Bypass Pixeldrain download limits with multiple proxy options and language support
 // @description:tr Pixeldrain indirme sınırlarını birden fazla proxy seçeneği ve dil desteği ile bypass et
 // @description:en Bypass Pixeldrain download limits with multiple proxy options and language support
@@ -34,6 +34,8 @@
 // @grant        GM_getValue
 // @grant        GM_notification
 // @grant        GM_openInTab
+// @grant        GM_xmlhttpRequest
+// @connect      127.0.0.1
 // @icon         https://pixeldrain.com/favicon.ico
 // @supportURL   https://greasyfork.org/scripts/551766-pixeldrain-bypass-multi-language/feedback
 // @license      MIT
@@ -54,7 +56,10 @@
             copied: 'Link kopyalandı!',
             copyLink: 'Linki Kopyala',
             openLink: 'Linki Aç',
-            codedBy: 'xmtaha tarafından sevgi ile kodlanmıştır'
+            codedBy: 'xmtaha tarafından sevgi ile kodlanmıştır',
+            jdownloader: 'Click n Load',
+            jdownloaderSuccess: 'JDownloader\'a eklendi!',
+            jdownloaderError: 'JDownloader açık değil!'
         },
         en: {
             bypass: 'Bypass',
@@ -67,7 +72,10 @@
             copied: 'Link copied!',
             copyLink: 'Copy Link',
             openLink: 'Open Link',
-            codedBy: 'Coded with love by xmtaha'
+            codedBy: 'Coded with love by xmtaha',
+            jdownloader: 'Click n Load',
+            jdownloaderSuccess: 'Added to JDownloader!',
+            jdownloaderError: 'JDownloader is not running!'
         },
         es: {
             bypass: 'Saltar',
@@ -80,7 +88,10 @@
             copied: '¡Enlace copiado!',
             copyLink: 'Copiar Enlace',
             openLink: 'Abrir Enlace',
-            codedBy: 'Codificado con amor por xmtaha'
+            codedBy: 'Codificado con amor por xmtaha',
+            jdownloader: 'Click n Load',
+            jdownloaderSuccess: '¡Añadido a JDownloader!',
+            jdownloaderError: '¡JDownloader no está funcionando!'
         },
         fr: {
             bypass: 'Contourner',
@@ -93,7 +104,10 @@
             copied: 'Lien copié!',
             copyLink: 'Copier le Lien',
             openLink: 'Ouvrir le Lien',
-            codedBy: 'Codé avec amour par xmtaha'
+            codedBy: 'Codé avec amour par xmtaha',
+            jdownloader: 'Click n Load',
+            jdownloaderSuccess: 'Ajouté à JDownloader!',
+            jdownloaderError: 'JDownloader n\'est pas en cours d\'exécution!'
         },
         de: {
             bypass: 'Umgehen',
@@ -106,7 +120,10 @@
             copied: 'Link kopiert!',
             copyLink: 'Link Kopieren',
             openLink: 'Link Öffnen',
-            codedBy: 'Mit Liebe von xmtaha kodiert'
+            codedBy: 'Mit Liebe von xmtaha kodiert',
+            jdownloader: 'Click n Load',
+            jdownloaderSuccess: 'Zu JDownloader hinzugefügt!',
+            jdownloaderError: 'JDownloader läuft nicht!'
         },
         ru: {
             bypass: 'Обход',
@@ -119,7 +136,10 @@
             copied: 'Ссылка скопирована!',
             copyLink: 'Копировать Ссылку',
             openLink: 'Открыть Ссылку',
-            codedBy: 'Закодировано с любовью xmtaha'
+            codedBy: 'Закодировано с любовью xmtaha',
+            jdownloader: 'Click n Load',
+            jdownloaderSuccess: 'Добавлено в JDownloader!',
+            jdownloaderError: 'JDownloader не запущен!'
         },
         ja: {
             bypass: 'バイパス',
@@ -132,7 +152,10 @@
             copied: 'リンクをコピーしました！',
             copyLink: 'リンクをコピー',
             openLink: 'リンクを開く',
-            codedBy: 'xmtahaによって愛情を込めてコードされました'
+            codedBy: 'xmtahaによって愛情を込めてコードされました',
+            jdownloader: 'Click n Load',
+            jdownloaderSuccess: 'JDownloaderに追加されました！',
+            jdownloaderError: 'JDownloaderが実行されていません！'
         },
         ko: {
             bypass: '우회',
@@ -145,7 +168,10 @@
             copied: '링크가 복사되었습니다!',
             copyLink: '링크 복사',
             openLink: '링크 열기',
-            codedBy: 'xmtaha가 사랑으로 코딩했습니다'
+            codedBy: 'xmtaha가 사랑으로 코딩했습니다',
+            jdownloader: 'Click n Load',
+            jdownloaderSuccess: 'JDownloader에 추가되었습니다!',
+            jdownloaderError: 'JDownloader가 실행 중이 아닙니다!'
         },
         zh: {
             bypass: '绕过',
@@ -158,7 +184,10 @@
             copied: '链接已复制！',
             copyLink: '复制链接',
             openLink: '打开链接',
-            codedBy: '由 xmtaha 满怀爱意编码'
+            codedBy: '由 xmtaha 满怀爱意编码',
+            jdownloader: 'Click n Load',
+            jdownloaderSuccess: '已添加到JDownloader！',
+            jdownloaderError: 'JDownloader 未运行！'
         },
         ar: {
             bypass: 'تجاوز',
@@ -171,7 +200,10 @@
             copied: 'تم نسخ الرابط!',
             copyLink: 'نسخ الرابط',
             openLink: 'فتح الرابط',
-            codedBy: 'مبرمج بحب من قبل xmtaha'
+            codedBy: 'مبرمج بحب من قبل xmtaha',
+            jdownloader: 'Click n Load',
+            jdownloaderSuccess: 'تمت الإضافة إلى JDownloader!',
+            jdownloaderError: 'JDownloader لا يعمل!'
         },
         pt: {
             bypass: 'Contornar',
@@ -184,7 +216,10 @@
             copied: 'Link copiado!',
             copyLink: 'Copiar Link',
             openLink: 'Abrir Link',
-            codedBy: 'Codificado com amor por xmtaha'
+            codedBy: 'Codificado com amor por xmtaha',
+            jdownloader: 'Click n Load',
+            jdownloaderSuccess: 'Adicionado ao JDownloader!',
+            jdownloaderError: 'O JDownloader não está em execução!'
         }
     };
 
@@ -434,6 +469,70 @@
         });
 
         buttonContainer.appendChild(proxy1Button);
+
+        const jdlButton = document.createElement('button');
+        jdlButton.textContent = currentTranslation.jdownloader;
+        jdlButton.style.cssText = `
+            background: linear-gradient(45deg, #1d976c, #93f9b9);
+            color: #0b3d2b;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-align: center;
+        `;
+
+        jdlButton.addEventListener('mouseenter', function () {
+            this.style.transform = 'translateY(-2px)';
+            this.style.boxShadow = '0 6px 20px rgba(29,151,108,0.4)';
+        });
+
+        jdlButton.addEventListener('mouseleave', function () {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = 'none';
+        });
+
+        jdlButton.addEventListener('click', function () {
+            const originalText = this.textContent;
+            this.textContent = currentTranslation.downloading;
+            this.disabled = true;
+
+            const url = bypassUrls.proxy1;
+
+            if (typeof GM_xmlhttpRequest !== "undefined") {
+                GM_xmlhttpRequest({
+                    method: "POST",
+                    url: "http://127.0.0.1:9666/flash/add",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    data: "urls=" + encodeURIComponent(url) + "&source=" + encodeURIComponent(window.location.href),
+                    onload: (response) => {
+                        if (response.status === 200) {
+                            showNotification(currentTranslation.jdownloaderSuccess, 'success');
+                        } else {
+                            showNotification(currentTranslation.jdownloaderError, 'error');
+                        }
+                        this.textContent = originalText;
+                        this.disabled = false;
+                    },
+                    onerror: () => {
+                        showNotification(currentTranslation.jdownloaderError, 'error');
+                        this.textContent = originalText;
+                        this.disabled = false;
+                    }
+                });
+            } else {
+                showNotification("GM_xmlhttpRequest is not supported by your script manager.", 'error');
+                this.textContent = originalText;
+                this.disabled = false;
+            }
+        });
+
+        buttonContainer.appendChild(jdlButton);
 
         copyContainer.appendChild(copyProxy1Btn);
 
