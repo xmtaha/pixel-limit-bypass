@@ -11,8 +11,8 @@
 // @name:zh      Pixeldrain Bypass - 多语言
 // @name:ar      Pixeldrain Bypass - متعدد اللغات
 // @name:pt      Pixeldrain Bypass - Multi-idioma
-// @namespace    https://greasyfork.org/users/pixeldrain-bypass
-// @version      1.0.0
+// @namespace    https://greasyfork.org/users/1522465-xmtaha
+// @version      1.6
 // @description  Bypass Pixeldrain download limits with multiple proxy options and language support
 // @description:tr Pixeldrain indirme sınırlarını birden fazla proxy seçeneği ve dil desteği ile bypass et
 // @description:en Bypass Pixeldrain download limits with multiple proxy options and language support
@@ -28,27 +28,25 @@
 // @author       xmtaha
 // @match        https://pixeldrain.com/*
 // @match        https://www.pixeldrain.com/*
+// @match        https://pixeldra.in/*
+// @match        https://www.pixeldra.in/*
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        GM_notification
+// @grant        GM_openInTab
 // @icon         https://pixeldrain.com/favicon.ico
-// @updateURL    https://greasyfork.org/scripts/yourscript/code/Pixeldrain%20Bypass%20-%20Multi%20Language.meta.js
-// @downloadURL  https://greasyfork.org/scripts/yourscript/code/Pixeldrain%20Bypass%20-%20Multi%20Language.user.js
-// @supportURL   https://greasyfork.org/scripts/yourscript/feedback
+// @supportURL   https://greasyfork.org/scripts/551766-pixeldrain-bypass-multi-language/feedback
 // @license      MIT
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
 
     const translations = {
         tr: {
             bypass: 'Bypass',
             selectProxy: 'Proxy Seç',
-            proxy1: 'Proxy 1 (proxy2.pixeldrainbypass.org)',
-            proxy2: 'Proxy 2 (pd.1drv.eu.org)',
-                proxy1: 'Proxy 1 (pixeldrainbypass.org)',
-                proxy2: 'Proxy 2 (pixeldrain-bypass.cybar.xyz)',
+            proxy1: 'Sınırsız İndir',
             downloading: 'İndiriliyor...',
             success: 'Bypass linki başarıyla açıldı!',
             error: 'Hata oluştu!',
@@ -61,10 +59,7 @@
         en: {
             bypass: 'Bypass',
             selectProxy: 'Select Proxy',
-            proxy1: 'Proxy 1 (proxy2.pixeldrainbypass.org)',
-            proxy2: 'Proxy 2 (pd.cybar.xyz)',
-                proxy1: 'Proxy 1 (pixeldrainbypass.org)',
-                proxy2: 'Proxy 2 (pixeldrain-bypass.cybar.xyz)',
+            proxy1: 'Unlimited Download',
             downloading: 'Downloading...',
             success: 'Bypass link opened successfully!',
             error: 'An error occurred!',
@@ -77,10 +72,7 @@
         es: {
             bypass: 'Saltar',
             selectProxy: 'Seleccionar Proxy',
-            proxy1: 'Proxy 1 (proxy2.pixeldrainbypass.org)',
-            proxy2: 'Proxy 2 (pd.cybar.xyz)',
-                proxy1: 'Proxy 1 (pixeldrainbypass.org)',
-                proxy2: 'Proxy 2 (pixeldrain-bypass.cybar.xyz)',
+            proxy1: 'Descarga Ilimitada',
             downloading: 'Descargando...',
             success: '¡Enlace de bypass abierto exitosamente!',
             error: '¡Ocurrió un error!',
@@ -93,10 +85,7 @@
         fr: {
             bypass: 'Contourner',
             selectProxy: 'Sélectionner Proxy',
-            proxy1: 'Proxy 1 (proxy2.pixeldrainbypass.org)',
-            proxy2: 'Proxy 2 (pd.cybar.xyz)',
-                proxy1: 'Proxy 1 (pixeldrainbypass.org)',
-                proxy2: 'Proxy 2 (pixeldrain-bypass.cybar.xyz)',
+            proxy1: 'Téléchargement Illimité',
             downloading: 'Téléchargement...',
             success: 'Lien de contournement ouvert avec succès!',
             error: 'Une erreur est survenue!',
@@ -109,10 +98,7 @@
         de: {
             bypass: 'Umgehen',
             selectProxy: 'Proxy Auswählen',
-            proxy1: 'Proxy 1 (proxy2.pixeldrainbypass.org)',
-            proxy2: 'Proxy 2 (pd.cybar.xyz)',
-                proxy1: 'Proxy 1 (pixeldrainbypass.org)',
-                proxy2: 'Proxy 2 (pixeldrain-bypass.cybar.xyz)',
+            proxy1: 'Unbegrenzter Download',
             downloading: 'Wird heruntergeladen...',
             success: 'Bypass-Link erfolgreich geöffnet!',
             error: 'Ein Fehler ist aufgetreten!',
@@ -125,10 +111,7 @@
         ru: {
             bypass: 'Обход',
             selectProxy: 'Выбрать Прокси',
-            proxy1: 'Прокси 1 (proxy2.pixeldrainbypass.org)',
-            proxy2: 'Прокси 2 (pd.cybar.xyz)',
-                proxy1: 'Прокси 1 (pixeldrainbypass.org)',
-                proxy2: 'Прокси 2 (pixeldrain-bypass.cybar.xyz)',
+            proxy1: 'Неограниченная загрузка',
             downloading: 'Загрузка...',
             success: 'Ссылка обхода успешно открыта!',
             error: 'Произошла ошибка!',
@@ -141,10 +124,7 @@
         ja: {
             bypass: 'バイパス',
             selectProxy: 'プロキシ選択',
-            proxy1: 'プロキシ1 (proxy2.pixeldrainbypass.org)',
-            proxy2: 'プロキシ2 (pd.cybar.xyz)',
-                proxy1: 'プロキシ1 (pixeldrainbypass.org)',
-                proxy2: 'プロキシ2 (pixeldrain-bypass.cybar.xyz)',
+            proxy1: '無制限ダウンロード',
             downloading: 'ダウンロード中...',
             success: 'バイパスリンクが正常に開かれました！',
             error: 'エラーが発生しました！',
@@ -157,10 +137,7 @@
         ko: {
             bypass: '우회',
             selectProxy: '프록시 선택',
-            proxy1: '프록시 1 (proxy2.pixeldrainbypass.org)',
-            proxy2: '프록시 2 (pd.cybar.xyz)',
-                proxy1: '프록시 1 (pixeldrainbypass.org)',
-                proxy2: '프록시 2 (pixeldrain-bypass.cybar.xyz)',
+            proxy1: '무제한 다운로드',
             downloading: '다운로드 중...',
             success: '우회 링크가 성공적으로 열렸습니다!',
             error: '오류가 발생했습니다!',
@@ -173,10 +150,7 @@
         zh: {
             bypass: '绕过',
             selectProxy: '选择代理',
-            proxy1: '代理1 (proxy2.pixeldrainbypass.org)',
-            proxy2: '代理2 (pd.cybar.xyz)',
-                proxy1: '代理1 (pixeldrainbypass.org)',
-                proxy2: '代理2 (pixeldrain-bypass.cybar.xyz)',
+            proxy1: '无限下载',
             downloading: '下载中...',
             success: '绕过链接成功打开！',
             error: '发生错误！',
@@ -189,10 +163,7 @@
         ar: {
             bypass: 'تجاوز',
             selectProxy: 'اختيار البروكسي',
-            proxy1: 'البروكسي 1 (proxy2.pixeldrainbypass.org)',
-            proxy2: 'البروكسي 2 (pd.cybar.xyz)',
-                proxy1: 'البروكسي 1 (pixeldrainbypass.org)',
-                proxy2: 'البروكسي 2 (pixeldrain-bypass.cybar.xyz)',
+            proxy1: 'تنزيل غير محدود',
             downloading: 'جاري التنزيل...',
             success: 'تم فتح رابط التجاوز بنجاح!',
             error: 'حدث خطأ!',
@@ -205,10 +176,7 @@
         pt: {
             bypass: 'Contornar',
             selectProxy: 'Selecionar Proxy',
-            proxy1: 'Proxy 1 (proxy2.pixeldrainbypass.org)',
-            proxy2: 'Proxy 2 (pd.cybar.xyz)',
-                proxy1: 'Proxy 1 (pixeldrainbypass.org)',
-                proxy2: 'Proxy 2 (pixeldrain-bypass.cybar.xyz)',
+            proxy1: 'Download Ilimitado',
             downloading: 'Baixando...',
             success: 'Link de contorno aberto com sucesso!',
             error: 'Ocorreu um erro!',
@@ -225,14 +193,14 @@
         if (savedLang && translations[savedLang]) {
             return savedLang;
         }
-        
+
         const browserLang = navigator.language || navigator.userLanguage;
         const langCode = browserLang.split('-')[0].toLowerCase();
-        
+
         if (translations[langCode]) {
             return langCode;
         }
-        
+
         return 'en';
     }
 
@@ -241,14 +209,13 @@
 
     function extractFileId() {
         const url = window.location.href;
-        const match = url.match(/pixeldrain\.com\/u\/([a-zA-Z0-9]+)/);
+        const match = url.match(/(?:pixeldrain\.com|pixeldra\.in)\/u\/([a-zA-Z0-9]+)/);
         return match ? match[1] : null;
     }
 
     function generateBypassUrls(fileId) {
         return {
-            proxy1: `https://proxy2.pixeldrainbypass.org/download/${fileId}`,
-            proxy2: `https://pd.1drv.eu.org/${fileId}`
+            proxy1: `https://cdn.pixeldrain.eu.cc/${fileId}`
         };
     }
 
@@ -284,7 +251,7 @@
             `;
             notification.textContent = message;
             document.body.appendChild(notification);
-            
+
             setTimeout(() => {
                 if (notification.parentNode) {
                     notification.parentNode.removeChild(notification);
@@ -303,7 +270,7 @@
             background: white;
             font-size: 12px;
         `;
-        
+
         const languages = {
             tr: 'Türkçe',
             en: 'English',
@@ -317,7 +284,7 @@
             ar: 'العربية',
             pt: 'Português'
         };
-        
+
         Object.entries(languages).forEach(([code, name]) => {
             const option = document.createElement('option');
             option.value = code;
@@ -327,14 +294,14 @@
             }
             langSelector.appendChild(option);
         });
-        
-        langSelector.addEventListener('change', function() {
+
+        langSelector.addEventListener('change', function () {
             currentLang = this.value;
             currentTranslation = translations[currentLang];
             GM_setValue('selectedLanguage', currentLang);
             updateButtonTexts();
         });
-        
+
         return langSelector;
     }
 
@@ -354,7 +321,7 @@
         }
 
         const bypassUrls = generateBypassUrls(fileId);
-        
+
         const container = document.createElement('div');
         container.id = 'pixeldrain-bypass-container';
         container.style.cssText = `
@@ -406,60 +373,35 @@
             transition: all 0.3s ease;
             text-align: center;
         `;
-        
-        proxy1Button.addEventListener('mouseenter', function() {
+
+        proxy1Button.addEventListener('mouseenter', function () {
             this.style.transform = 'translateY(-2px)';
             this.style.boxShadow = '0 6px 20px rgba(255,107,107,0.4)';
         });
-        
-        proxy1Button.addEventListener('mouseleave', function() {
+
+        proxy1Button.addEventListener('mouseleave', function () {
             this.style.transform = 'translateY(0)';
             this.style.boxShadow = 'none';
-        });
-        
-        proxy1Button.addEventListener('click', function() {
-            this.textContent = currentTranslation.downloading;
-            this.disabled = true;
-            setTimeout(() => {
-                window.open(bypassUrls.proxy1, '_blank');
-                showNotification(currentTranslation.success, 'success');
-                this.textContent = currentTranslation.proxy1;
-                this.disabled = false;
-            }, 1000);
         });
 
-        const proxy2Button = document.createElement('button');
-        proxy2Button.textContent = currentTranslation.proxy2;
-        proxy2Button.style.cssText = `
-            background: linear-gradient(45deg, #4ECDC4, #6FDDDD);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            text-align: center;
-        `;
-        
-        proxy2Button.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-2px)';
-            this.style.boxShadow = '0 6px 20px rgba(78,205,196,0.4)';
-        });
-        
-        proxy2Button.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-            this.style.boxShadow = 'none';
-        });
-        
-        proxy2Button.addEventListener('click', function() {
+        proxy1Button.addEventListener('click', function () {
             this.textContent = currentTranslation.downloading;
             this.disabled = true;
             setTimeout(() => {
-                window.open(bypassUrls.proxy2, '_blank');
+                if (typeof GM_openInTab !== 'undefined') {
+                    GM_openInTab(bypassUrls.proxy1, { active: true });
+                } else {
+                    const a = document.createElement('a');
+                    a.href = bypassUrls.proxy1;
+                    a.target = '_blank';
+                    a.rel = 'noreferrer noopener';
+                    a.referrerPolicy = 'no-referrer';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
                 showNotification(currentTranslation.success, 'success');
-                this.textContent = currentTranslation.proxy2;
+                this.textContent = currentTranslation.proxy1;
                 this.disabled = false;
             }, 1000);
         });
@@ -472,7 +414,7 @@
         `;
 
         const copyProxy1Btn = document.createElement('button');
-        copyProxy1Btn.textContent = `${currentTranslation.copyLink} 1`;
+        copyProxy1Btn.textContent = currentTranslation.copyLink;
         copyProxy1Btn.style.cssText = `
             background: rgba(255,255,255,0.2);
             color: white;
@@ -485,26 +427,15 @@
             margin-bottom: 5px;
             transition: all 0.3s ease;
         `;
-        
-        copyProxy1Btn.addEventListener('click', function() {
+
+        copyProxy1Btn.addEventListener('click', function () {
             copyToClipboard(bypassUrls.proxy1);
             showNotification(currentTranslation.copied, 'success');
         });
 
-        const copyProxy2Btn = document.createElement('button');
-        copyProxy2Btn.textContent = `${currentTranslation.copyLink} 2`;
-        copyProxy2Btn.style.cssText = copyProxy1Btn.style.cssText;
-        
-        copyProxy2Btn.addEventListener('click', function() {
-            copyToClipboard(bypassUrls.proxy2);
-            showNotification(currentTranslation.copied, 'success');
-        });
-
         buttonContainer.appendChild(proxy1Button);
-        buttonContainer.appendChild(proxy2Button);
-        
+
         copyContainer.appendChild(copyProxy1Btn);
-        copyContainer.appendChild(copyProxy2Btn);
 
         const creditContainer = document.createElement('div');
         creditContainer.style.cssText = `
@@ -516,16 +447,16 @@
             transition: color 0.3s ease;
         `;
         creditContainer.textContent = currentTranslation.codedBy;
-        creditContainer.addEventListener('mouseenter', function() {
+        creditContainer.addEventListener('mouseenter', function () {
             this.style.color = 'rgba(255,255,255,1)';
         });
-        creditContainer.addEventListener('mouseleave', function() {
+        creditContainer.addEventListener('mouseleave', function () {
             this.style.color = 'rgba(255,255,255,0.7)';
         });
-        creditContainer.addEventListener('click', function() {
+        creditContainer.addEventListener('click', function () {
             window.open('https://github.com/xmtaha', '_blank');
         });
-        
+
         container.appendChild(header);
         container.appendChild(buttonContainer);
         container.appendChild(copyContainer);
@@ -546,7 +477,7 @@
         function dragStart(e) {
             initialX = e.clientX - xOffset;
             initialY = e.clientY - yOffset;
-            
+
             if (e.target === header || header.contains(e.target)) {
                 isDragging = true;
                 header.style.cursor = 'grabbing';
@@ -560,7 +491,7 @@
                 currentY = e.clientY - initialY;
                 xOffset = currentX;
                 yOffset = currentY;
-                
+
                 container.style.transform = `translate(${currentX}px, ${currentY}px)`;
             }
         }
@@ -573,7 +504,7 @@
         }
 
         header.style.cursor = 'grab';
-        
+
         document.body.appendChild(container);
     }
 
