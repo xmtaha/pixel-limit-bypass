@@ -12,7 +12,7 @@
 // @name:ar      Pixeldrain Bypass - متعدد اللغات
 // @name:pt      Pixeldrain Bypass - Multi-idioma
 // @namespace    https://greasyfork.org/users/1522465-xmtaha
-// @version      1.7
+// @version      1.7.1
 // @description  Bypass Pixeldrain download limits with multiple proxy options and language support
 // @description:tr Pixeldrain indirme sınırlarını birden fazla proxy seçeneği ve dil desteği ile bypass et
 // @description:en Bypass Pixeldrain download limits with multiple proxy options and language support
