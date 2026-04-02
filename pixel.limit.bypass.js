@@ -509,7 +509,7 @@
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded"
                     },
-                    data: "urls=" + encodeURIComponent(url) + "&source=" + encodeURIComponent(window.location.href),
+                    data: "passwords=&autostart=1&source=" + encodeURIComponent(window.location.href) + "&urls=" + encodeURIComponent(url),
                     onload: (response) => {
                         if (response.status === 200) {
                             showNotification(currentTranslation.jdownloaderSuccess, 'success');
