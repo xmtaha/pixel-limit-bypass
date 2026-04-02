@@ -28,7 +28,7 @@
         const fileId = extractFileId();
         if (!fileId) return;
 
-        const bypassUrl = `https://cdn.pixeldrain.eu.cc/${fileId}`;
+        const bypassUrl = `https://cdn.pixeldrain.eu.cc/${fileId}?download`;
 
         const existingBtn = document.getElementById('pd-unlimited-dl');
         if (existingBtn) {
@@ -50,6 +50,7 @@
             const urlToOpen = this.dataset.url;
             const tempLink = document.createElement('a');
             tempLink.href = urlToOpen;
+            tempLink.setAttribute('download', '');
             tempLink.target = '_blank';
             tempLink.rel = 'noreferrer noopener';
             document.body.appendChild(tempLink);
