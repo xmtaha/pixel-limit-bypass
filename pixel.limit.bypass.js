@@ -34,8 +34,6 @@
 // @grant        GM_getValue
 // @grant        GM_notification
 // @grant        GM_openInTab
-// @grant        GM_xmlhttpRequest
-// @connect      127.0.0.1
 // @icon         https://pixeldrain.com/favicon.ico
 // @supportURL   https://greasyfork.org/scripts/551766-pixeldrain-bypass-multi-language/feedback
 // @license      MIT
@@ -469,70 +467,6 @@
         });
 
         buttonContainer.appendChild(proxy1Button);
-
-        const jdlButton = document.createElement('button');
-        jdlButton.textContent = currentTranslation.jdownloader;
-        jdlButton.style.cssText = `
-            background: linear-gradient(45deg, #1d976c, #93f9b9);
-            color: #0b3d2b;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            text-align: center;
-        `;
-
-        jdlButton.addEventListener('mouseenter', function () {
-            this.style.transform = 'translateY(-2px)';
-            this.style.boxShadow = '0 6px 20px rgba(29,151,108,0.4)';
-        });
-
-        jdlButton.addEventListener('mouseleave', function () {
-            this.style.transform = 'translateY(0)';
-            this.style.boxShadow = 'none';
-        });
-
-        jdlButton.addEventListener('click', function () {
-            const originalText = this.textContent;
-            this.textContent = currentTranslation.downloading;
-            this.disabled = true;
-
-            const url = bypassUrls.proxy1;
-
-            if (typeof GM_xmlhttpRequest !== "undefined") {
-                GM_xmlhttpRequest({
-                    method: "POST",
-                    url: "http://127.0.0.1:9666/flash/add",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    data: "passwords=&autostart=1&source=" + encodeURIComponent(window.location.href) + "&urls=" + encodeURIComponent(url),
-                    onload: (response) => {
-                        if (response.status === 200) {
-                            showNotification(currentTranslation.jdownloaderSuccess, 'success');
-                        } else {
-                            showNotification(currentTranslation.jdownloaderError, 'error');
-                        }
-                        this.textContent = originalText;
-                        this.disabled = false;
-                    },
-                    onerror: () => {
-                        showNotification(currentTranslation.jdownloaderError, 'error');
-                        this.textContent = originalText;
-                        this.disabled = false;
-                    }
-                });
-            } else {
-                showNotification("GM_xmlhttpRequest is not supported by your script manager.", 'error');
-                this.textContent = originalText;
-                this.disabled = false;
-            }
-        });
-
-        buttonContainer.appendChild(jdlButton);
 
         copyContainer.appendChild(copyProxy1Btn);
 
